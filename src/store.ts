@@ -1,12 +1,13 @@
 import { useBase, useGlobalConfig, useRecords } from '@airtable/blocks/ui';
 import { getChartData } from './utils';
-import { useState } from 'react';
 
 export const storeKey = {
   TABLE_ID: 'TABLE_ID',
   X_FIELD_ID: 'X_FIELD_ID',
   Y_FIELD_ID: 'Y_FIELD_ID',
   SHOW_SETTINGS: 'SHOW_SETTINGS',
+  PHASE_FIELD_ID: 'PHASE_FIELD_ID',
+  ACTION_FIELD_ID: 'ACTION_FIELD_ID',
 };
 
 export const useStore = () => {
@@ -27,6 +28,11 @@ export const useStore = () => {
   const data =
     records && xField && yField ? getChartData(records, xField, yField) : null;
 
+  const phaseFieldId = globalConfig.get(storeKey.PHASE_FIELD_ID) as string;
+  const phaseField = table.getFieldByIdIfExists(phaseFieldId);
+
+  const actionFieldId = globalConfig.get(storeKey.ACTION_FIELD_ID) as string;
+  const actionField = table.getFieldByIdIfExists(actionFieldId);
   return {
     /**
      * 全局配置参数
@@ -38,6 +44,10 @@ export const useStore = () => {
      */
     table,
     /**
+     * 地图所有记录
+     */
+    records,
+    /**
      * X 轴字段
      */
     xField,
@@ -45,6 +55,14 @@ export const useStore = () => {
      * Y 轴字段
      */
     yField,
+    /**
+     * 阶段字段
+     */
+    phaseField,
+    /**
+     * 行为字段
+     */
+    actionField,
     /**
      * 重置所有字段
      */

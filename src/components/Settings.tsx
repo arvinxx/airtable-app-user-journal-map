@@ -38,6 +38,22 @@ const Settings: FC<SettingsProps> = ({ setShowSettings }) => {
           globalConfigKey={storeKey.TABLE_ID}
         />
       </FormField>
+      <Heading as={'h6'}>用户旅程</Heading>
+      <FormField label="旅程阶段">
+        <FieldPickerSynced
+          table={table}
+          placeholder={'请选择旅程阶段...'}
+          globalConfigKey={storeKey.ACTION_FIELD_ID}
+        />
+      </FormField>
+      <FormField label="用户行为">
+        <FieldPickerSynced
+          table={table}
+          placeholder={'请选择用户行为...'}
+          globalConfigKey={storeKey.PHASE_FIELD_ID}
+        />
+      </FormField>
+      <Heading as={'h6'}>体验得分图</Heading>
       {table && (
         <FormField label="用户行为 (X轴)">
           <FieldPickerSynced
@@ -65,7 +81,7 @@ const Settings: FC<SettingsProps> = ({ setShowSettings }) => {
               setShowSettings(false);
             }}
           >
-            确定
+            关闭
           </Button>
           <Button variant={'default'} onClick={reset}>
             重置

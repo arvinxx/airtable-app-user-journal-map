@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Box, useSettingsButton } from '@airtable/blocks/ui';
-import { Settings, Chart } from './components';
+import { Settings, Chart, Flow } from './components';
 
 import { useStore } from './store';
 
@@ -14,9 +14,12 @@ const App: FC = () => {
   });
 
   return (
-    <Box display={'flex'} width={'100vw'}>
-      <Box style={{ width: showSettings ? 'calc(100vw - 250px)' : '100vw' }}>
-        <Chart data={chartData} />
+    <Box display={'flex'} width={'100vw'} padding={'24px 8px'}>
+      <Box style={{ width: showSettings ? 'calc(100% - 250px)' : '100%' }}>
+        <Flow />
+        <Box marginTop={3}>
+          <Chart data={chartData} />
+        </Box>
       </Box>
       {!chartData || showSettings ? (
         <Settings setShowSettings={setShowSettings} />
