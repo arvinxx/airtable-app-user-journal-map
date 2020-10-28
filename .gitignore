@@ -2,3 +2,4 @@
 /.airtableblocksrc.json
 /build
 .idea
+yarn.lock

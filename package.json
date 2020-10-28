@@ -1,9 +1,9 @@
 {
-  "author": {
-    "name": "Arvin Xu",
-    "email": "arvinx@foxmail.com"
-  },
-  "dependencies": {
+    "author": {
+        "name": "Arvin Xu",
+        "email": "arvinx@foxmail.com"
+    },
+    "dependencies": {
         "@airtable/blocks": "1.2.0",
         "bizcharts": "^4.0.14",
         "react": "^16.9.0",
@@ -15,8 +15,8 @@
         "eslint": "^6.3.0",
         "eslint-plugin-react": "^7.14.3",
         "eslint-plugin-react-hooks": "^2.0.1",
-        "typescript": "^3.9.3",
-        "prettier": "^2.1.0"
+        "prettier": "^2.1.0",
+        "typescript": "^3.9.3"
     },
     "scripts": {
         "start": "block run",

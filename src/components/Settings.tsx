@@ -1,61 +1,78 @@
+import React, { FC } from 'react';
 import {
   TablePickerSynced,
-  ViewPickerSynced,
   FieldPickerSynced,
   Box,
   FormField,
+  Heading,
+  Text,
+  colors,
+  Button,
 } from '@airtable/blocks/ui';
-import React from 'react';
 
-import { GlobalConfigKeys } from '../App';
+import { useStore, storeKey } from '../store';
 
-const width = '20%';
-const Settings = ({ table }) => {
+interface SettingsProps {
+  setShowSettings: (value: boolean) => void;
+}
+const Settings: FC<SettingsProps> = ({ setShowSettings }) => {
+  const { table, reset, isConfigFinished } = useStore();
+
   return (
-    <div>
-      <Box display="flex" padding={3} borderBottom="thin">
-        <FormField label="表格" width={width} paddingRight={1} marginBottom={0}>
-          <TablePickerSynced globalConfigKey={GlobalConfigKeys.TABLE_ID} />
+    <Box
+      zIndex={100}
+      backgroundColor={'white'}
+      width={250}
+      padding={3}
+      height={'100vh'}
+      borderLeft={'1px solid'}
+      borderColor={colors.GRAY_LIGHT_2}
+    >
+      <Heading as={'h3'}>设置</Heading>
+      <Text textColor={colors.GRAY} marginBottom={3}>
+        请选择需要展示体验得分的表格与横纵坐标, 完成后点击确定
+      </Text>
+      <FormField label="表格">
+        <TablePickerSynced
+          placeholder={'请选择用户旅程地图...'}
+          globalConfigKey={storeKey.TABLE_ID}
+        />
+      </FormField>
+      {table && (
+        <FormField label="用户行为 (X轴)">
+          <FieldPickerSynced
+            table={table}
+            placeholder={'请选择用户行为...'}
+            globalConfigKey={storeKey.X_FIELD_ID}
+          />
         </FormField>
-        {table && (
-          <FormField label="视图" width={width} paddingX={1} marginBottom={0}>
-            <ViewPickerSynced
-              table={table}
-              globalConfigKey={GlobalConfigKeys.VIEW_ID}
-            />
-          </FormField>
-        )}
-        {table && (
-          <FormField label="X轴" width={width} paddingLeft={1} marginBottom={0}>
-            <FieldPickerSynced
-              table={table}
-              globalConfigKey={GlobalConfigKeys.X_FIELD_ID}
-            />
-          </FormField>
-        )}
-        {table && (
-          <FormField label="Y轴" width={width} paddingLeft={1} marginBottom={0}>
-            <FieldPickerSynced
-              table={table}
-              globalConfigKey={GlobalConfigKeys.Y_FIELD_ID}
-            />
-          </FormField>
-        )}
-        {table && (
-          <FormField
-            label="阶段"
-            width={width}
-            paddingLeft={1}
-            marginBottom={0}
+      )}
+      {table && (
+        <FormField label="用户情绪 (Y轴)">
+          <FieldPickerSynced
+            table={table}
+            placeholder={'请选择用户情绪...'}
+            globalConfigKey={storeKey.Y_FIELD_ID}
+          />
+        </FormField>
+      )}
+      {isConfigFinished ? (
+        <Box marginTop={4} display={'flex'} flexDirection={'row-reverse'}>
+          <Button
+            variant={'primary'}
+            marginLeft={2}
+            onClick={() => {
+              setShowSettings(false);
+            }}
           >
-            <FieldPickerSynced
-              table={table}
-              globalConfigKey={GlobalConfigKeys.GROUP_FIELD_ID}
-            />
-          </FormField>
-        )}
-      </Box>
-    </div>
+            确定
+          </Button>
+          <Button variant={'default'} onClick={reset}>
+            重置
+          </Button>
+        </Box>
+      ) : null}
+    </Box>
   );
 };
 
