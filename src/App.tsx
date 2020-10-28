@@ -5,7 +5,7 @@ import { Settings, Chart } from './components';
 import { useStore } from './store';
 
 const App: FC = () => {
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
   const { chartData } = useStore();
 
@@ -13,14 +13,14 @@ const App: FC = () => {
     setShowSettings(!showSettings);
   });
 
-  console.log(showSettings);
-
   return (
     <Box display={'flex'} width={'100vw'}>
       <Box style={{ width: showSettings ? 'calc(100vw - 250px)' : '100vw' }}>
         <Chart data={chartData} />
       </Box>
-      {showSettings ? <Settings setShowSettings={setShowSettings} /> : null}
+      {!chartData || showSettings ? (
+        <Settings setShowSettings={setShowSettings} />
+      ) : null}
     </Box>
   );
 };
