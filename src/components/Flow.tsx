@@ -20,7 +20,7 @@ interface FlowProps {}
 const Flow: FC<FlowProps> = () => {
   const { phaseField, records } = useStore();
 
-  const choices = (phaseField.options as FieldOption)?.choices;
+  const choices = (phaseField?.options as FieldOption)?.choices;
 
   return (
     <Box flex={1} display={'flex'}>
@@ -59,7 +59,7 @@ const Flow: FC<FlowProps> = () => {
                     </Text>
                   </Box>
 
-                  <Box display={'flex'} height={120} marginTop={3}>
+                  <Box display={'flex'} height={120} marginTop={'24px'}>
                     {actions?.map((action, aIndex) => {
                       console.log(index === 0);
                       return (

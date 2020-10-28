@@ -15,7 +15,7 @@ const LineChart: FC<LineChartProps> = ({ data }) =>
       <Box width={40}>
         <Stage height={300}>体验情绪</Stage>
       </Box>
-      <Box width={'100%'}>
+      <Box width={'100%'} marginTop={2}>
         <Chart autoFit height={300} data={data || []}>
           <LineAdvance
             // label={{}}

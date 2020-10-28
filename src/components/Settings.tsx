@@ -12,11 +12,8 @@ import {
 
 import { useStore, storeKey } from '../store';
 
-interface SettingsProps {
-  setShowSettings: (value: boolean) => void;
-}
-const Settings: FC<SettingsProps> = ({ setShowSettings }) => {
-  const { table, reset, isConfigFinished } = useStore();
+const Settings: FC = () => {
+  const { table, reset, isConfigFinished, setShowSettings } = useStore();
 
   return (
     <Box
@@ -38,40 +35,45 @@ const Settings: FC<SettingsProps> = ({ setShowSettings }) => {
           globalConfigKey={storeKey.TABLE_ID}
         />
       </FormField>
-      <Heading as={'h6'}>用户旅程</Heading>
-      <FormField label="旅程阶段">
-        <FieldPickerSynced
-          table={table}
-          placeholder={'请选择旅程阶段...'}
-          globalConfigKey={storeKey.ACTION_FIELD_ID}
-        />
-      </FormField>
-      <FormField label="用户行为">
-        <FieldPickerSynced
-          table={table}
-          placeholder={'请选择用户行为...'}
-          globalConfigKey={storeKey.PHASE_FIELD_ID}
-        />
-      </FormField>
-      <Heading as={'h6'}>体验得分图</Heading>
       {table && (
-        <FormField label="用户行为 (X轴)">
+        <FormField label="用户行为">
           <FieldPickerSynced
             table={table}
             placeholder={'请选择用户行为...'}
-            globalConfigKey={storeKey.X_FIELD_ID}
+            globalConfigKey={storeKey.ACTION_FIELD_ID}
           />
         </FormField>
       )}
       {table && (
-        <FormField label="用户情绪 (Y轴)">
-          <FieldPickerSynced
-            table={table}
-            placeholder={'请选择用户情绪...'}
-            globalConfigKey={storeKey.Y_FIELD_ID}
-          />
-        </FormField>
+        <>
+          <Heading size={'small'} as={'h4'}>
+            用户旅程
+          </Heading>
+          <FormField label="旅程阶段">
+            <FieldPickerSynced
+              table={table}
+              placeholder={'请选择旅程阶段...'}
+              globalConfigKey={storeKey.PHASE_FIELD_ID}
+            />
+          </FormField>
+        </>
       )}
+      {table && (
+        <>
+          <Heading size={'small'} as={'h4'}>
+            用户情绪
+          </Heading>
+
+          <FormField label="用户情绪 (Y轴)">
+            <FieldPickerSynced
+              table={table}
+              placeholder={'请选择用户情绪...'}
+              globalConfigKey={storeKey.MOTION_FIELD_ID}
+            />
+          </FormField>
+        </>
+      )}
+
       {isConfigFinished ? (
         <Box marginTop={4} display={'flex'} flexDirection={'row-reverse'}>
           <Button
