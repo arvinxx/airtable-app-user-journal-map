@@ -35,7 +35,7 @@ const Flow: FC<FlowProps> = () => {
           ? choices.map((option, index) => {
               // TODO 没选 actions 的情况
               const actions = records.filter(
-                (r) => (r.getCellValue(phaseField) as Option).id === option.id
+                (r) => (r.getCellValue(phaseField) as Option)?.id === option.id
               );
 
               return (
@@ -60,53 +60,50 @@ const Flow: FC<FlowProps> = () => {
                   </Box>
 
                   <Box display={'flex'} height={120} marginTop={'24px'}>
-                    {actions?.map((action, aIndex) => {
-                      console.log(index === 0);
-                      return (
+                    {actions?.map((action, aIndex) => (
+                      <Box
+                        key={action.id}
+                        flexWrap={'nowrap'}
+                        marginLeft={index === 0 && aIndex === 0 ? 1 : 0}
+                        marginRight={
+                          index === choices?.length - 1 &&
+                          aIndex === actions?.length - 1
+                            ? 1
+                            : 0
+                        }
+                        width={`${100 / actions.length}%`}
+                        display={'flex'}
+                        justifyContent={'center'}
+                        borderTop={'3px solid'}
+                        borderColor={option.color}
+                        position={'relative'}
+                        style={{
+                          strokeLinecap: 'round',
+                        }}
+                      >
                         <Box
-                          key={action.id}
-                          flexWrap={'nowrap'}
-                          marginLeft={index === 0 && aIndex === 0 ? 1 : 0}
-                          marginRight={
-                            index === choices?.length - 1 &&
-                            aIndex === actions?.length - 1
-                              ? 1
-                              : 0
-                          }
-                          width={`${100 / actions.length}%`}
-                          display={'flex'}
-                          justifyContent={'center'}
-                          borderTop={'3px solid'}
-                          borderColor={option.color}
-                          position={'relative'}
+                          borderRadius={10}
+                          width={10}
+                          height={10}
+                          position={'absolute'}
+                          backgroundColor={option.color}
+                          top={'-6px'}
+                        />
+                        <Text
                           style={{
-                            strokeLinecap: 'round',
+                            writingMode: 'vertical-lr',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis',
+                            overflow: 'hidden',
+                            margin: 0,
+                            marginTop: 12,
                           }}
+                          textColor={'GrayText'}
                         >
-                          <Box
-                            borderRadius={10}
-                            width={10}
-                            height={10}
-                            position={'absolute'}
-                            backgroundColor={option.color}
-                            top={'-6px'}
-                          />
-                          <Text
-                            style={{
-                              writingMode: 'vertical-lr',
-                              whiteSpace: 'nowrap',
-                              textOverflow: 'ellipsis',
-                              overflow: 'hidden',
-                              margin: 0,
-                              marginTop: 12,
-                            }}
-                            textColor={'GrayText'}
-                          >
-                            {action.name}
-                          </Text>
-                        </Box>
-                      );
-                    })}
+                          {action.name}
+                        </Text>
+                      </Box>
+                    ))}
                   </Box>
                 </Box>
               );
