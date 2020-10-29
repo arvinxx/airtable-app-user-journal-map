@@ -88,15 +88,21 @@ export const useStore = () => {
     /**
      * 是否完成了配置
      */
-    isConfigFinished: !!(table && motionField && phaseField && actionField),
+    isConfigFinished: !!(
+      table &&
+      view &&
+      motionField &&
+      phaseField &&
+      actionField
+    ),
     /**
      * 是否配置完成了 Flow
      */
-    isFinishedFlow: !!(table && phaseField && actionField),
+    isFinishedFlow: !!(table && view && phaseField && actionField),
     /**
      * 是否配置完成了 Chart
      */
-    isFinishedChart: !!(table && actionField && motionField),
+    isFinishedChart: !!(table && view && actionField && motionField),
     /**
      * 是否显示设置面板
      */
