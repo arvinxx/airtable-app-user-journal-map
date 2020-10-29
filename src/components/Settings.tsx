@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import {
   TablePickerSynced,
   FieldPickerSynced,
+  ViewPickerSynced,
   Box,
   FormField,
   Heading,
@@ -13,7 +14,7 @@ import {
 import { useStore, storeKey } from '../store';
 
 const Settings: FC = () => {
-  const { table, reset, isConfigFinished, setShowSettings } = useStore();
+  const { table, view, reset, isConfigFinished, setShowSettings } = useStore();
 
   return (
     <Box
@@ -36,6 +37,15 @@ const Settings: FC = () => {
         />
       </FormField>
       {table && (
+        <FormField label="视图" description={'请选择包含完整行为列表的视图'}>
+          <ViewPickerSynced
+            table={table}
+            placeholder={'请选择视图...'}
+            globalConfigKey={storeKey.VIEW_ID}
+          />
+        </FormField>
+      )}
+      {view && (
         <FormField label="用户行为">
           <FieldPickerSynced
             table={table}
@@ -44,7 +54,7 @@ const Settings: FC = () => {
           />
         </FormField>
       )}
-      {table && (
+      {view && (
         <>
           <Heading size={'small'} as={'h4'}>
             用户旅程
@@ -58,7 +68,7 @@ const Settings: FC = () => {
           </FormField>
         </>
       )}
-      {table && (
+      {view && (
         <>
           <Heading size={'small'} as={'h4'}>
             用户情绪
@@ -73,7 +83,6 @@ const Settings: FC = () => {
           </FormField>
         </>
       )}
-
       {isConfigFinished ? (
         <Box marginTop={4} display={'flex'} flexDirection={'row-reverse'}>
           <Button

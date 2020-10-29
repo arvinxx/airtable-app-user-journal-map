@@ -3,6 +3,7 @@ import { getChartData } from './utils';
 
 export const storeKey = {
   TABLE_ID: 'TABLE_ID',
+  VIEW_ID: 'VIEW_ID',
   MOTION_FIELD_ID: 'MOTION_FIELD_ID',
   PHASE_FIELD_ID: 'PHASE_FIELD_ID',
   ACTION_FIELD_ID: 'ACTION_FIELD_ID',
@@ -19,6 +20,9 @@ export const useStore = () => {
   const tableId = globalConfig.get(storeKey.TABLE_ID) as string;
   const table = base.getTableByIdIfExists(tableId);
 
+  const viewId = globalConfig.get(storeKey.VIEW_ID) as string;
+  const view = table?.getViewByIdIfExists(viewId);
+
   const phaseFieldId = globalConfig.get(storeKey.PHASE_FIELD_ID) as string;
   const phaseField = table?.getFieldByIdIfExists(phaseFieldId);
 
@@ -28,7 +32,7 @@ export const useStore = () => {
   const motionFieldId = globalConfig.get(storeKey.MOTION_FIELD_ID) as string;
   const motionField = table ? table.getFieldByIdIfExists(motionFieldId) : null;
 
-  const records = useRecords(table);
+  const records = useRecords(view);
 
   const data =
     records && actionField && motionField
@@ -45,6 +49,11 @@ export const useStore = () => {
      *
      */
     table,
+    /**
+     * 视图
+     *
+     */
+    view,
     /**
      * 地图所有记录
      */
@@ -67,6 +76,7 @@ export const useStore = () => {
      */
     reset: () => {
       globalConfig.setAsync(storeKey.TABLE_ID, '').finally();
+      globalConfig.setAsync(storeKey.VIEW_ID, '').finally();
       globalConfig.setAsync(storeKey.ACTION_FIELD_ID, '').finally();
       globalConfig.setAsync(storeKey.MOTION_FIELD_ID, '').finally();
       globalConfig.setAsync(storeKey.PHASE_FIELD_ID, '').finally();
