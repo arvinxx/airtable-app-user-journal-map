@@ -30,7 +30,7 @@ export const centerStyle: StyleProps = {
  *
  */
 export const textStyle: StyleProps = {
-  textColor: 'GrayText',
+  textColor: 'rgba(0,0,0,0.45)',
   fontSize: 12,
   margin: 0,
   style: {

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Box, Text } from '@airtable/blocks/ui';
-import { useStore } from '../store';
+import { Box, expandRecord, Text } from '@airtable/blocks/ui';
 import { FieldType } from '@airtable/blocks/models';
 import { FieldOptions } from '@airtable/blocks/dist/types/src/types/field';
+import { useStore } from '../store';
 import { centerStyle } from './style';
 import Stage from './Stage';
 
@@ -80,6 +80,9 @@ const Flow: FC<FlowProps> = () => {
                         style={{
                           strokeLinecap: 'round',
                         }}
+                        onClick={() => {
+                          expandRecord(action);
+                        }}
                       >
                         <Box
                           borderRadius={10}
@@ -97,8 +100,9 @@ const Flow: FC<FlowProps> = () => {
                             overflow: 'hidden',
                             margin: 0,
                             marginTop: 12,
+                            cursor: 'pointer',
                           }}
-                          textColor={'GrayText'}
+                          textColor={'rgba(0,0,0,0.45)'}
                         >
                           {action.name}
                         </Text>
